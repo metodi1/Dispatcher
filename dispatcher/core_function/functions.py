@@ -38,7 +38,7 @@ def get_info(start_location, end_location, waypoints):
                 'time': add_seconds_to_time(total_sec + (leg['duration']['value'])),
                 'total_sec': total_sec + (leg['duration']['value']),
             })
-            total_time = math.ceil((total_time + leg['duration']['value']) / 60)
+            total_time = math.ceil((total_time + int(leg['duration']['value']) / 60))
             total_sec = total_sec + int(leg['duration']['value'])
     return route_legs
 

@@ -61,10 +61,10 @@ def route_view(request):
             route_legs = get_info(start_location, end_location, waypoints)
 
             for route in route_legs:
-                total_distance = total_distance + (int(route['distance_value']) / 1000)
+                total_distance = total_distance + (int(route['time_travel']))
 
-            for route in route_legs:
-                total_distance = total_distance + (int(route['distance_value']) / 1000)
+            #for route in route_legs:
+            #    total_distance = total_distance + (int(route['distance_value']) / 1000)
 
             round_number = RoundDetails(start_point=start_location_en, end_point=end_location_en, waypoints=waypoints,
                                         total_distance=total_distance)
