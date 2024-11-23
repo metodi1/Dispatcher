@@ -1,0 +1,32 @@
+{% load static %}
+{% include 'home/navigation.html' %}
+
+<link rel="stylesheet" type="text/css" href="{% static '/css/bootstrap.css' %}">
+
+<!-- product_detail.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Детайли за {{ route.id }} маршрут</title>
+</head>
+ <h1>Детайли за {{ route.id }} маршрут</h1>
+<table border="1">
+    <thead>
+        <tr>
+            <th>Start Address</th>
+            <th>End Address</th>
+            <th>Distance</th>
+            <th>Waypoints</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{ route.start_point }}</td>
+            <td>{{ route.end_point }}</td>
+            <td>{{ route.total_distance }}</td>
+            <td>{{ route.waypoints }}</td>
+        </tr>
+    </tbody>
+</table>
+</html>

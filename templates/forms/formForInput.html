@@ -1,0 +1,57 @@
+{% load static %}
+{% include 'home/base.html' %}
+{% include 'home/navigation.html' %}
+<link rel="stylesheet" type="text/css" href="{% static '/css/bootstrap.css' %}">
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Route Planner</title>
+</head>
+<body>
+    <h2>Plan Your Route</h2>
+    <form method="POST">
+        {% csrf_token %}
+
+
+        <!-- Start and End Points -->
+       <!-- Start and End Point Form -->
+        <fieldset>
+            <legend>Route Information</legend>
+            {{ route_form.as_p }}
+        </fieldset>
+
+
+        <!-- Waypoints -->
+        <h3>Waypoints</h3>
+        {{ waypoint_formset.management_form }}
+        <div id="waypoint-forms">
+            {% for form in waypoint_formset %}
+                <div class="waypoint-form">
+                    {{ form.as_p }}
+                </div>
+            {% endfor %}
+        </div>
+
+        <!-- Add more button (using JavaScript) -->
+        <button type="button" id="add-more-waypoints">Add More Waypoints</button>
+
+        <button type="submit">Submit Route</button>
+    </form>
+
+    <script>
+        document.getElementById('add-more-waypoints').onclick = function() {
+            var container = document.getElementById('waypoint-forms');
+            var totalForms = document.getElementById('id_form-TOTAL_FORMS');
+            var formNum = parseInt(totalForms.value);
+
+            var newForm = container.children[0].cloneNode(true);  // Clone the first form
+            newForm.innerHTML = newForm.innerHTML.replace(/form-\d+/g, 'form-' + formNum);  // Update form number
+
+            container.appendChild(newForm);
+            totalForms.value = formNum + 1;  // Increment the total forms count
+        }
+    </script>
+</body>
+</html>

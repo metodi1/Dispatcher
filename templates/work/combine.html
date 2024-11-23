@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Maps Route</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key={{ google_maps_api_key }}&callback=initMap" async defer></script>
+    <style>
+        #map {
+            height: 80%;
+        }
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Map</h1>
+    <h1>{{ start_point }}</h1>
+    <h1>{{ end_point }}</h1>
+    <h1>{{ google_maps_api_key }}</h1>
+    <h1>{% for waypoint in waypoints %}
+            {{ waypoint }}
+         {% endfor %}
+    </h1>
+
+    <div id="map"></div>
+    <h1>
+            {% if route_legs %}
+        <h2>Travel Time and Distance</h2>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Start Address</th>
+                    <th>End Address</th>
+                    <th>Distance</th>
+                    <th>Duration</th>
+                    <th>Time on the address</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for leg in route_legs %}
+                    <tr>
+                        <td>{{ leg.start_address }}</td>
+                        <td>{{ leg.end_address }}</td>
+                        <td>{{ leg.distance }}</td>
+                        <td>{{ leg.duration }}</td>
+                        <td>{{ leg.time_travel }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% elif error %}
+        <p>Error: {{ error }}</p>
+    {% endif %}
+
+
+
+    </h1>
+
+
+
+</body>
+</html>

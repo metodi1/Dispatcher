@@ -1,0 +1,47 @@
+{% load static %}
+{% load custom_tags %}
+{% include 'home/navigation.html' %}
+
+<link rel="stylesheet" type="text/css" href="{% static '/css/bootstrap.css' %}">
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Routes List</title>
+</head>
+<body>
+<h1>All routes</h1>
+<table border="1">
+    <thead>
+        <tr>
+            <th>Route ID</th>
+            <th>Start Address</th>
+            <th>Waypoints</th>
+            <th>End Address</th>
+            <th>Distance</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for route in routes %}
+        <tr>
+            <td><a href="{% url 'route detail' route.pk %}">{{ route.id }}</a></td>
+            <td>{{ route.start_point }}</td>
+            <td>{{ route.waypoints }}</td>
+            <td>{{ route.end_point }}</td>
+            <td>{{ route.total_distance }}</td>
+        </tr>
+        {% empty %}
+            No routes available.
+        {% endfor %}
+    </tbody>
+</table>
+
+
+
+
+
+
+</body>
+</html>

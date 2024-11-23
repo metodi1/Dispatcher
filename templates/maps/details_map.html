@@ -1,0 +1,70 @@
+{% load static %}
+{% include 'home/base.html' %}
+{% include 'home/navigation.html' %}
+<link rel="stylesheet" type="text/css" href="{% static '/css/bootstrap.css' %}">
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Maps Route</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key={{ google_maps_api_key }}&callback=initMap" async defer></script>
+    <style>
+        #map {
+            height: 80%;
+        }
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    <h1>
+
+    <script>
+        function initMap() {
+            var directionsService = new google.maps.DirectionsService();
+            var directionsRenderer = new google.maps.DirectionsRenderer();
+
+            // Initialize the map at a default location (centered at the origin)
+            var map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 7,
+                center: { lat: 40.7128, lng: -74.0060 }  //
+            });
+            directionsRenderer.setMap(map);
+
+            // Define the origin, destination, and waypoints
+            var request = {
+                origin: "{{ route.start_point }}",
+                destination: "{{ route.end_point }}",
+
+                waypoints: [
+                    {% for waypoint in route.waypoints%}
+                    {
+                        location: "{{ waypoint }}",
+                        stopover: true
+                    },
+                    {% endfor %}
+                ],
+                optimizeWaypoints: true,
+                travelMode: 'DRIVING'
+            };
+
+            // Fetch and display the route
+            directionsService.route(request, function(result, status) {
+                if (status == 'OK') {
+                    directionsRenderer.setDirections(result);
+                } else {
+                    alert("Directions request failed due to " + status);
+                }
+            });
+        }
+    </script>
+    </h1>
+
+
+</body>
+</html>

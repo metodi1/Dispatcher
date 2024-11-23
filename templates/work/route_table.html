@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Route Details Table</title>
+</head>
+<body>
+    <h1>Route Details</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        <label for="start">Start Location:</label>
+        <input type="text" id="start" name="start" required>
+
+        <label for="end">End Location:</label>
+        <input type="text" id="end" name="end" required>
+
+        <!-- Add multiple waypoints -->
+        <label for="waypoints">Waypoints (one per line):</label>
+        <textarea id="waypoints" name="waypoints"></textarea>
+
+        <button type="submit">Calculate Route</button>
+    </form>
+
+    {% if route_legs %}
+        <h2>Travel Time and Distance</h2>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Start Address</th>
+                    <th>End Address</th>
+                    <th>Distance</th>
+                    <th>Duration</th>
+                    <th>Time on the address</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for leg in route_legs %}
+                    <tr>
+                        <td>{{ leg.start_address }}</td>
+                        <td>{{ leg.end_address }}</td>
+                        <td>{{ leg.distance }}</td>
+                        <td>{{ leg.duration }}</td>
+                        <td>{{ leg.time_travel }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% elif error %}
+        <p>Error: {{ error }}</p>
+    {% endif %}
+</body>
+</html>
