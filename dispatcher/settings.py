@@ -131,5 +131,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 GOOGLE_MAPS_API_KEY = config("API_KEY", default="default_value_if_missing")
 STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
-ALLOWED_HOSTS = ['heroku auth:whoami
-.herokuapp.com']
+ALLOWED_HOSTS = ['dispatcher.herokuapp.com']
+
