@@ -1,2 +1,2 @@
-web: gunicorn dispatcher.wsgi --log-file -
+web: gunicorn dispatcher12.wsgi --log-file -
 
